@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 import { Widget } from '../../app-interfaces';
-import { WidgetsService } from '../widgets.service';
 
 @Component({
   selector: 'app-widget-details',
@@ -14,7 +12,6 @@ export class WidgetDetailsComponent implements OnInit {
   originalTitle: string;
 
   @Input() widgetForm: FormGroup;
-  @Input() errorMessage: string;
   @Input() set widget(val: Widget) {
     console.log('val', val);
     this.currentWidget = { ...val };
@@ -27,22 +24,12 @@ export class WidgetDetailsComponent implements OnInit {
   @Output() saved = new EventEmitter<Widget>();
   @Output() canceled = new EventEmitter();
 
-  constructor(private fb: FormBuilder, private widgetService: WidgetsService) {}
+  constructor() {}
 
   SubmitWidget(widget: Widget) {
     console.log('SubmitWidget', widget);
     this.saved.emit(widget);
   }
 
-  ngOnInit() {
-    // this.widgetForm = this.fb.group({
-    //   id: [],
-    //   title: [],
-    //   description: [''],
-    //   email: [
-    //     '',
-    //     [Validators.pattern('[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
-    //   ],
-    // });
-  }
+  ngOnInit() {}
 }

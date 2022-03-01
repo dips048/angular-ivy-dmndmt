@@ -107,7 +107,7 @@
         <mat-error *ngIf="widgetForm.get('email').hasError('pattern')">
           Please enter valid email address.
         </mat-error>
-        <mat-error *ngIf="errorMessage">
+        <mat-error *ngIf="widgetForm.get('email').hasError('exist')">
           Email address already exist.
         </mat-error>
       </mat-form-field>

@@ -13,7 +13,6 @@ export class WidgetsComponent implements OnInit {
   widgets$: Observable<Widget[]>;
   widgetForm: FormGroup;
   selectedWidget$: Widget;
-  errorMessage: string;
 
   constructor(private widgetService: WidgetsService, private fb: FormBuilder) {}
 
@@ -42,7 +41,6 @@ export class WidgetsComponent implements OnInit {
       this.widgetService.create(widget).subscribe(
         (next) => {},
         (err) => {
-          this.errorMessage = err.message;
           this.widgetForm.get('email').setErrors({ exist: true });
           console.log('save widget', err.message);
         }

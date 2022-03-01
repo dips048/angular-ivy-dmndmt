@@ -20,7 +20,7 @@ export class WidgetsComponent implements OnInit {
     this.loadWidgets();
     this.widgetForm = this.fb.group({
       id: [],
-      title: [],
+      title: [''],
       description: [''],
       email: [
         '',
@@ -34,51 +34,48 @@ export class WidgetsComponent implements OnInit {
   }
 
   saveWidget(widget: Widget) {
-    console.log('saveWidget', widget);
     if (widget.id) {
-      this.widgetService
-        .update(widget, widget.id)
-        .subscribe(() => this.reset());
+      this.updateWidget(widget);
     } else {
-      this.widgetService.create(widget).subscribe({
-        next: () => {
-          this.reset();
-        },
-        error: (err) => {
-          if (err.message === 'E001') {
-            this.widgetForm.get('email').setErrors({ exist: true });
-          }
-          console.log('saveWidget error', err.message);
-        },
-      });
+      this.createWidget(widget);
     }
   }
 
   reset() {
     this.loadWidgets();
-    this.selectWidget(null);
+    this.resetForm();
+    // this.selectWidget(null);
   }
 
   resetForm() {
-    this.selectWidget(null);
+    this.widgetForm.reset({});
+    // this.selectWidget(null);
   }
 
   selectWidget(widget: Widget) {
-    this.widgetService.findOne(widget?.id);
+    this.widgetService.findOne(widget?.id).subscribe();
   }
 
   createWidget(widget: Widget) {
-    this.widgetService.create(widget);
+    this.widgetService.create(widget).subscribe({
+      next: () => {
+        this.reset();
+      },
+      error: (err) => {
+        if (err.message === 'E001') {
+          this.widgetForm.get('email').setErrors({ exist: true });
+        }
+        console.log('saveWidget error', err.message);
+      },
+    });
   }
 
   updateWidget(widget: Widget) {
-    this.widgetService.update(widget, widget.id);
+    this.widgetService.update(widget, widget.id).subscribe(() => this.reset());
   }
 
   deleteWidget(widget: Widget) {
-    this.widgetService.delete(widget).subscribe({
-      next: () => this.reset(),
-    });
+    this.widgetService.delete(widget).subscribe(() => this.reset());
   }
 
   onSelected(widget: Widget) {

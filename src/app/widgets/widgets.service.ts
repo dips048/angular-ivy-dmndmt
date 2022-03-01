@@ -37,7 +37,7 @@ export class WidgetsService {
   }
 
   findOne(id) {
-    return of(this.widgets.filter((w) => w.id === id));
+    return of(this.widgets.find((w) => w.id === id));
   }
 
   create(widget: Widget): Observable<any> {

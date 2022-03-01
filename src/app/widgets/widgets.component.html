@@ -4,8 +4,7 @@
 ></app-widgets-list>
 
 <app-widget-details
-  [widget]="selectedWidget$"
-  [widgetVal]="selectedWidget$"
+  [widget]="selectedWidget"
   [widgetForm]="widgetForm"
   (saved)="saveWidget($event)"
   (cancelled)="resetForm()"

@@ -12,7 +12,7 @@ import { WidgetsService } from './widgets.service';
 export class WidgetsComponent implements OnInit {
   widgets$: Observable<Widget[]>;
   widgetForm: FormGroup;
-  selectedWidget$: Widget;
+  selectedWidget: Widget;
 
   constructor(private widgetService: WidgetsService, private fb: FormBuilder) {}
 
@@ -79,6 +79,6 @@ export class WidgetsComponent implements OnInit {
   }
 
   onSelected(widget: Widget) {
-    this.selectedWidget$ = widget;
+    this.selectedWidget = widget;
   }
 }

@@ -8,8 +8,8 @@ import { Widget } from '../../app-interfaces';
   styleUrls: ['./widget-details.component.css'],
 })
 export class WidgetDetailsComponent implements OnInit {
+
   currentWidget: Widget;
-  originalTitle: string;
 
   @Input() widgetForm: FormGroup;
   @Input() set widget(val: Widget) {

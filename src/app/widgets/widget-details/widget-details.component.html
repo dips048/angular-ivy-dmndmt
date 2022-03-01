@@ -1,11 +1,9 @@
 <mat-card>
   <mat-card-title>
-    <span *ngIf="currentWidget.id == null; else editTitle">
-      Select widget
+    <span *ngIf="currentWidget; else editTitle">
+      Edit Widgets {{ currentWidget.title }}
     </span>
-    <ng-template #editTitle>
-      Edit Widgets {{ currentWidget?.title }}</ng-template
-    >
+    <ng-template #editTitle>Select widget</ng-template>
   </mat-card-title>
   <mat-card-content>
     <form
@@ -76,14 +74,15 @@
       >
         Cancel
       </button>
-    <button *ngIf="widgetVal"
-    mat-button
-    type="button"
-    color="secondary"
-    (click)="delete.emit(widgetVal); wForm.reset();"
-  >
-    Delete
-  </button>
+      <button
+        *ngIf="currentWidget"
+        mat-button
+        type="button"
+        color="secondary"
+        (click)="delete.emit(currentWidget); wForm.reset()"
+      >
+        Delete
+      </button>
     </form>
   </mat-card-content>
 </mat-card>

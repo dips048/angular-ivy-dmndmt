@@ -7,58 +7,6 @@
       Edit Widgets {{ currentWidget?.title }}</ng-template
     >
   </mat-card-title>
-  <!-- <mat-card-content>
-    <form #wForm="ngForm" (submit)="SubmitWidget(currentWidget)">
-      <mat-form-field class="full-width">
-        <input
-          matInput
-          [(ngModel)]="currentWidget.title"
-          placeholder="Title"
-          type="text"
-          required
-          name="title"
-        />
-      </mat-form-field>
-
-      <mat-form-field class="full-width">
-        <input
-          matInput
-          name="description"
-          [(ngModel)]="currentWidget.description"
-          placeholder="Description"
-          required
-        />
-      </mat-form-field>
-
-      <mat-form-field>
-        <input
-          matInput
-          [(ngModel)]="currentWidget.email"
-          placeholder="Email"
-          type="email"
-          required
-          name="email"
-        />
-      </mat-form-field>
-
-      <button
-        mat-button
-        color="primary"
-        type="submit"
-        [disabled]="wForm.invalid"
-      >
-        Save
-      </button>
-      <button
-        mat-button
-        type="reset"
-        color="secondary"
-        (click)="wForm.reset(); canceled.emit()"
-      >
-        Cancel
-      </button>
-    </form>
-  </mat-card-content> -->
   <mat-card-content>
     <form
       #wForm="ngForm"
@@ -102,8 +50,8 @@
           name="email"
         />
         <mat-error *ngIf="widgetForm.get('email').hasError('required')">
-          Email address is required.</mat-error
-        >
+          Email address is required.
+        </mat-error>
         <mat-error *ngIf="widgetForm.get('email').hasError('pattern')">
           Please enter valid email address.
         </mat-error>

@@ -39,7 +39,9 @@ export class WidgetsComponent implements OnInit {
       this.widgetService.update(widget, widget.id).subscribe();
     } else {
       this.widgetService.create(widget).subscribe(
-        (next) => {},
+        (next) => {
+          this.widgetForm.reset();
+        },
         (err) => {
           this.widgetForm.get('email').setErrors({ exist: true });
           console.log('save widget', err.message);

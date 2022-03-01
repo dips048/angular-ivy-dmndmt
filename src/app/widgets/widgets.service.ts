@@ -85,19 +85,18 @@ export class WidgetsService {
     return of(this.widgets.filter((w) => w.id === id));
   }
 
-  create(widget: Widget) {
+  create(widget: Widget): Observable<any> {
     let existingWidget = this.widgets.find((w) => w.email === widget.email);
     if (!!existingWidget) {
-      // throw new Error(`E001`);
       return throwError(() => new Error(`E001`));
     } else {
-      widget.id = this.widgets.length.toString();
+      widget.id = (this.widgets.length + 1).toString();
       this.widgets.push(widget);
       return EMPTY;
     }
   }
 
   update(widget: Widget, id: string) {
-    return of(this.widgets.map((w) => (w.id === id ? this.widgets : w)));
+    return of(this.widgets.map((w) => (w.id === id ? widget : w)));
   }
 }

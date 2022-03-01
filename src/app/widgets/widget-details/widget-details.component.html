@@ -107,6 +107,9 @@
         <mat-error *ngIf="widgetForm.get('email').hasError('pattern')">
           Please enter valid email address.
         </mat-error>
+        <mat-error *ngIf="errorMessage">
+          Email address already exist.
+        </mat-error>
       </mat-form-field>
 
       <button
@@ -130,9 +133,7 @@
     <div
       *ngIf="emailAlredyExistError$ | async as emailAlredyExistError"
       class="alert alert-danger"
-    >
-      {{ emailAlredyExistError }}sxxzxzx
-    </div>
+    ></div>
   </mat-card-content>
 </mat-card>
 <!-- {{ wForm | json }} -->

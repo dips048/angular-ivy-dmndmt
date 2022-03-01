@@ -15,6 +15,7 @@ export class WidgetDetailsComponent implements OnInit {
   widgetForm: FormGroup;
   emailAlredyExistError$: Observable<string>;
 
+  @Input() errorMessage: string;
   @Input() set widget(val: Widget) {
     console.log('val', val);
     this.currentWidget = { ...val };

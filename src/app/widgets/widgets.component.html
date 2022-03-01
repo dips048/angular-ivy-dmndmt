@@ -2,9 +2,12 @@
   [widgets]="widgets$ | async"
   (selected)="onSelected($event)"
 ></app-widgets-list>
+
+<p>Error</p>
 <app-widget-details
   [widget]="selectedWidget$"
   [widgetVal]="selectedWidget$"
+  [errorMessage]="errorMessage"
   (saved)="saveWidget($event)"
   (cancelled)="resetForm()"
 ></app-widget-details>

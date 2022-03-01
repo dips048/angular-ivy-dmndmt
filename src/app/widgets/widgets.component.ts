@@ -12,6 +12,7 @@ export class WidgetsComponent implements OnInit {
   widgets$: Observable<Widget[]>;
 
   selectedWidget$: Widget;
+  errorMessage: string;
 
   constructor(private widgetService: WidgetsService) {}
 
@@ -30,7 +31,10 @@ export class WidgetsComponent implements OnInit {
     } else {
       this.widgetService.create(widget).subscribe(
         (next) => {},
-        (err) => console.log('save widget', err.message)
+        (err) => {
+          this.errorMessage = err.message;
+          console.log('save widget', err.message)
+        }
       );
     }
   }

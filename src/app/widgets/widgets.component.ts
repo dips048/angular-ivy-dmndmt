@@ -11,7 +11,6 @@ import { WidgetsService } from './widgets.service';
 })
 export class WidgetsComponent implements OnInit {
   widgets$: Observable<Widget[]>;
-
   widgetForm: FormGroup;
   selectedWidget$: Widget;
   errorMessage: string;

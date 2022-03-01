@@ -14,8 +14,8 @@ export class WidgetDetailsComponent implements OnInit {
   @Input() set widget(val: Widget) {
     console.log('val', val);
     this.currentWidget = { ...val };
-    if (val) {
-      this.widgetForm.setValue({ ...val });
+    if (val && val.id) {
+      this.widgetForm.setValue(val);
     }
   }
 

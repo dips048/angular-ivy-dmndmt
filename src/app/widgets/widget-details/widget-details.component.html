@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-title>
-    <span *ngIf="currentWidget; else editTitle">
+    <span *ngIf="currentWidget.id; else editTitle">
       Edit Widgets {{ currentWidget.title }}
     </span>
     <ng-template #editTitle>Select widget</ng-template>
@@ -75,7 +75,7 @@
         Cancel
       </button>
       <button
-        *ngIf="currentWidget"
+        *ngIf="currentWidget.id"
         mat-button
         type="button"
         color="secondary"

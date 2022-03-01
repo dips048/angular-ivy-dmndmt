@@ -20,8 +20,8 @@ export class WidgetsComponent implements OnInit {
     this.loadWidgets();
     this.widgetForm = this.fb.group({
       id: [],
-      title: [''],
-      description: [''],
+      title: [],
+      description: [],
       email: [
         '',
         [Validators.pattern('[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
@@ -44,11 +44,12 @@ export class WidgetsComponent implements OnInit {
   reset() {
     this.loadWidgets();
     this.resetForm();
+    this.selectedWidget = null;
     // this.selectWidget(null);
   }
 
   resetForm() {
-    this.widgetForm.reset({});
+    this.widgetForm.reset();
     // this.selectWidget(null);
   }
 
@@ -58,7 +59,7 @@ export class WidgetsComponent implements OnInit {
 
   createWidget(widget: Widget) {
     this.widgetService.create(widget).subscribe({
-      next: () => {
+      complete: () => {
         this.reset();
       },
       error: (err) => {

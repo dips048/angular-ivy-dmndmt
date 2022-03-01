@@ -44,7 +44,6 @@ export class WidgetsComponent implements OnInit {
   reset() {
     this.loadWidgets();
     this.resetForm();
-    this.selectedWidget = null;
     // this.selectWidget(null);
   }
 

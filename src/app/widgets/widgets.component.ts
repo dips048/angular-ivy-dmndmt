@@ -36,11 +36,12 @@ export class WidgetsComponent implements OnInit {
   saveWidget(widget: Widget) {
     console.log('saveWidget', widget);
     if (widget.id) {
+      console.log('update',widget);
       this.widgetService.update(widget, widget.id).subscribe();
     } else {
       this.widgetService.create(widget).subscribe(
         (next) => {
-          this.widgetForm.reset();
+          this.reset();
         },
         (err) => {
           this.widgetForm.get('email').setErrors({ exist: true });

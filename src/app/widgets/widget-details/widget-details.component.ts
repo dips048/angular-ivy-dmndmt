@@ -35,14 +35,14 @@ export class WidgetDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.widgetForm = this.fb.group({
-      id: [],
-      title: [],
-      description: [''],
-      email: [
-        '',
-        [Validators.pattern('[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
-      ],
-    });
+    // this.widgetForm = this.fb.group({
+    //   id: [],
+    //   title: [],
+    //   description: [''],
+    //   email: [
+    //     '',
+    //     [Validators.pattern('[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
+    //   ],
+    // });
   }
 }

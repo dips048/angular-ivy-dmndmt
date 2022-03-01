@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Widget } from '../app-interfaces';
 import { WidgetsService } from './widgets.service';
@@ -16,10 +16,19 @@ export class WidgetsComponent implements OnInit {
   selectedWidget$: Widget;
   errorMessage: string;
 
-  constructor(private widgetService: WidgetsService) {}
+  constructor(private widgetService: WidgetsService, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.loadWidgets();
+    this.widgetForm = this.fb.group({
+      id: [],
+      title: [],
+      description: [''],
+      email: [
+        '',
+        [Validators.pattern('[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
+      ],
+    });
   }
 
   loadWidgets() {
@@ -35,8 +44,8 @@ export class WidgetsComponent implements OnInit {
         (next) => {},
         (err) => {
           this.errorMessage = err.message;
-          this.widgetForm.get('email').setErrors({exist: true});
-          console.log('save widget', err.message)
+          this.widgetForm.get('email').setErrors({ exist: true });
+          console.log('save widget', err.message);
         }
       );
     }

@@ -8,7 +8,6 @@ import { Widget } from '../../app-interfaces';
   styleUrls: ['./widget-details.component.css'],
 })
 export class WidgetDetailsComponent implements OnInit {
-
   currentWidget: Widget;
 
   @Input() widgetForm: FormGroup;
@@ -19,18 +18,12 @@ export class WidgetDetailsComponent implements OnInit {
       this.widgetForm.setValue({ ...val });
     }
   }
-  @Input() widgetVal: Widget;
 
   @Output() saved = new EventEmitter<Widget>();
   @Output() canceled = new EventEmitter();
   @Output() delete = new EventEmitter<Widget>();
 
   constructor() {}
-
-  SubmitWidget(widget: Widget) {
-    console.log('SubmitWidget', widget);
-    this.saved.emit(widget);
-  }
 
   ngOnInit() {}
 }

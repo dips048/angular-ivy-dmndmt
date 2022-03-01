@@ -51,6 +51,7 @@ export class WidgetsService {
   }
 
   update(widget: Widget, id: string) {
+    this.widgets = this.widgets.map((w) => (w.id === id ? widget : w));
     return of(this.widgets.map((w) => (w.id === id ? this.widgets : w)));
   }
 }

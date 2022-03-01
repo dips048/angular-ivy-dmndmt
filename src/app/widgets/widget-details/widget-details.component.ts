@@ -15,8 +15,12 @@ export class WidgetDetailsComponent implements OnInit {
   @Input() set widget(val: Widget) {
     console.log('val', val);
     this.currentWidget = { ...val };
-    this.widgetForm.setValue(val);
+    if (val) {
+      this.widgetForm.setValue({ ...val });
+    }
   }
+
+  @Input() widgetVal: Widget;
 
   @Output() saved = new EventEmitter<Widget>();
   @Output() canceled = new EventEmitter();
@@ -30,6 +34,7 @@ export class WidgetDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.widgetForm = this.fb.group({
+      id: [],
       title: [],
       description: [''],
       email: [

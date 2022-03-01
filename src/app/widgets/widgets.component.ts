@@ -73,7 +73,9 @@ export class WidgetsComponent implements OnInit {
   }
 
   deleteWidget(widget: Widget) {
-    //  this.widgetService.delete(widget);
+     this.widgetService.delete(widget).subscribe({
+       next: () => this.reset()
+     });
   }
 
   onSelected(widget: Widget) {

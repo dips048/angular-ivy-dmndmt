@@ -23,6 +23,7 @@ export class WidgetDetailsComponent implements OnInit {
 
   @Output() saved = new EventEmitter<Widget>();
   @Output() canceled = new EventEmitter();
+  @Output() delete = new EventEmitter<Widget>();
 
   constructor() {}
 

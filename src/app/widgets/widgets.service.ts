@@ -19,18 +19,18 @@ export class WidgetsService {
       description: 'desc_2',
       email: 'email_2@p.com',
     },
-    // {
-    //   id: '3',
-    //   title: 'title_3',
-    //   description: 'desc_3',
-    //   email: 'email_3@p.com',
-    // },
-    // {
-    //   id: '4',
-    //   title: 'title_4',
-    //   description: 'desc_4',
-    //   email: 'email_4@p.com',
-    // },
+    {
+      id: '3',
+      title: 'title_3',
+      description: 'desc_3',
+      email: 'email_3@p.com',
+    },
+    {
+      id: '4',
+      title: 'title_4',
+      description: 'desc_4',
+      email: 'email_4@p.com',
+    },
   ];
 
   // constructor() {
@@ -97,6 +97,12 @@ export class WidgetsService {
   }
 
   update(widget: Widget, id: string) {
-    return of(this.widgets.map((w) => (w.id === id ? widget : w)));
+    this.widgets = this.widgets.map((w) => (w.id === id ? widget : w));
+    return of(this.widgets);
+  }
+
+  delete(widget: Widget) {
+    this.widgets = this.widgets.filter((w) => w.email !== widget.email);
+    return of(this.widgets);
   }
 }

@@ -76,6 +76,14 @@
       >
         Cancel
       </button>
+    <button *ngIf="widgetVal"
+    mat-button
+    type="button"
+    color="secondary"
+    (click)="delete.emit(widgetVal); wForm.reset();"
+  >
+    Delete
+  </button>
     </form>
   </mat-card-content>
 </mat-card>

@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-title>Widgets</mat-card-title>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item
+        *ngFor="let widget of widgets"
+        (click)="selectWidget(widget)"
+      >
+        {{ widget | json }}
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

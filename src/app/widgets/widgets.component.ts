@@ -71,7 +71,17 @@ export class WidgetsComponent implements OnInit {
   }
 
   updateWidget(widget: Widget) {
-    this.widgetService.update(widget, widget.id).subscribe(() => this.reset());
+    this.widgetService.update(widget, widget.id).subscribe({
+      complete: () => {
+        this.reset();
+      },
+      error: (err) => {
+        if (err.message === 'E001') {
+          this.widgetForm.get('email').setErrors({ exist: true });
+        }
+        console.log('saveWidget error', err.message);
+      },
+    });
   }
 
   deleteWidget(widget: Widget) {

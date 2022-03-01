@@ -52,8 +52,14 @@ export class WidgetsService {
   }
 
   update(widget: Widget, id: string) {
-    this.widgets = this.widgets.map((w) => (w.id === id ? widget : w));
-    return of(this.widgets);
+    const index = this.widgets.findIndex((w) => w.email === widget.email)
+    let existingWidget = this.widgets.find((w,i) => w.email === widget.email && (i != index));
+    if (!!existingWidget) {
+      return throwError(() => new Error(`E001`));
+    } else {
+      this.widgets = this.widgets.map((w) => (w.id === id ? widget : w));
+      return EMPTY;
+    }
   }
 
   delete(widget: Widget) {

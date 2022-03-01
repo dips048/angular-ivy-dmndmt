@@ -28,12 +28,10 @@ export class WidgetsComponent implements OnInit {
     if (widget.id) {
       this.widgetService.update(widget, widget.id).subscribe();
     } else {
-      try{
-        this.widgetService.create(widget).subscribe();
-      }catch(e){
-        
-      }
-     
+      this.widgetService.create(widget).subscribe(
+        (next) => {},
+        (err) => console.log('save widget', err.message)
+      );
     }
   }
 

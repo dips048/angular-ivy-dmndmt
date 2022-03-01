@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, of } from 'rxjs';
+import { EMPTY, map, Observable, of, throwError } from 'rxjs';
 import { Widget } from '../app-interfaces';
 
 @Injectable({ providedIn: 'root' })
@@ -33,47 +33,71 @@ export class WidgetsService {
     // },
   ];
 
-  constructor() {
-    this.widgets$ = of(this.widgets);
-  }
+  // constructor() {
+  //   this.widgets$ = of(this.widgets);
+  // }
+
+  // findAll() {
+  //   return this.widgets$;
+  // }
+
+  // findOne(id) {
+  //   return this.widgets$.pipe(
+  //     map((widgets) => widgets.find((w) => w.id === id))
+  //   );
+  // }
+
+  // create(widget: Widget) {
+  //   this.widgets$ = this.checkDublicateEmail(widget.email).pipe(
+  //     map((widgets) => {
+  //       widgets.push(widget);
+  //       return widgets;
+  //     })
+  //   );
+  //   return this.widgets$;
+  // }
+
+  // update(widget: Widget, id: string) {
+  //   this.widgets$ = this.widgets$.pipe(
+  //     map((widgets) => widgets.map((w) => (w.id === id ? widget : w)))
+  //   );
+  //   return this.widgets$;
+  // }
+
+  // checkDublicateEmail(value: string): Observable<Widget[]> {
+  //   return this.widgets$.pipe(
+  //     map((widgets) => {
+  //       const i = widgets.findIndex((widget) => widget.email === value);
+  //       if (i >= 0) {
+  //         this.emailAlredyExistError$ = throwError();
+  //         throw new Error('Email Aready Exist');
+  //       }
+  //       return widgets;
+  //     })
+  //   );
+  // }
 
   findAll() {
-    return this.widgets$;
+    return of(this.widgets);
   }
 
   findOne(id) {
-    return this.widgets$.pipe(
-      map((widgets) => widgets.find((w) => w.id === id))
-    );
+    return of(this.widgets.filter((w) => w.id === id));
   }
 
   create(widget: Widget) {
-    this.widgets$ = this.checkDublicateEmail(widget.email).pipe(
-      map((widgets) => {
-        widgets.push(widget);
-        return widgets;
-      })
-    );
-    return this.widgets$;
+    let existingWidget = this.widgets.find((w) => w.email === widget.email);
+    if (!!existingWidget) {
+      // throw new Error(`E001`);
+      return throwError(() => new Error(`E001`));
+    } else {
+      widget.id = this.widgets.length.toString();
+      this.widgets.push(widget);
+      return EMPTY;
+    }
   }
 
   update(widget: Widget, id: string) {
-    this.widgets$ = this.widgets$.pipe(
-      map((widgets) => widgets.map((w) => (w.id === id ? widget : w)))
-    );
-    return this.widgets$;
-  }
-
-  checkDublicateEmail(value: string): Observable<Widget[]> {
-    return this.widgets$.pipe(
-      map((widgets) => {
-        const i = widgets.findIndex((widget) => widget.email === value);
-        if (i >= 0) {
-          this.emailAlredyExistError$ = of(`"${value}" email Aready Exist`);
-          throw new Error('Email Aready Exist');
-        }
-        return widgets;
-      })
-    );
+    return of(this.widgets.map((w) => (w.id === id ? this.widgets : w)));
   }
 }

@@ -36,7 +36,7 @@ export class WidgetDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.emailAlredyExistError$ = this.widgetService.emailAlredyExistError$;
+    this.emailAlredyExistError$ = this.widgetService.emailAlredyExistError$;
     this.widgetForm = this.fb.group({
       id: [],
       title: [],

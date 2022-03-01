@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 import { Widget } from '../app-interfaces';
 
 @Injectable({ providedIn: 'root' })
 export class WidgetsService {
+  emailAlredyExistError$: Observable<string>;
+  widgets$: Observable<Widget[]>;
   widgets: Widget[] = [
     {
       id: '1',
@@ -31,27 +33,47 @@ export class WidgetsService {
     // },
   ];
 
-  constructor() {}
+  constructor() {
+    this.widgets$ = of(this.widgets);
+  }
 
   findAll() {
-    return of(this.widgets);
+    return this.widgets$;
   }
 
   findOne(id) {
-    return of(this.widgets.filter((w) => w.id === id));
+    return this.widgets$.pipe(
+      map((widgets) => widgets.find((w) => w.id === id))
+    );
   }
 
   create(widget: Widget) {
-    let existingWidget = this.widgets.find((w) => w.email === widget.email);
-    if (!!existingWidget) {
-      throw 'email exists';
-    } else {
-      this.widgets.push(widget);
-    }
+    this.widgets$ = this.checkDublicateEmail(widget.email).pipe(
+      map((widgets) => {
+        widgets.push(widget);
+        return widgets;
+      })
+    );
+    return this.widgets$;
   }
 
   update(widget: Widget, id: string) {
-    this.widgets = this.widgets.map((w) => (w.id === id ? widget : w));
-    return of(this.widgets.map((w) => (w.id === id ? this.widgets : w)));
+    this.widgets$ = this.widgets$.pipe(
+      map((widgets) => widgets.map((w) => (w.id === id ? widget : w)))
+    );
+    return this.widgets$;
+  }
+
+  checkDublicateEmail(value: string): Observable<Widget[]> {
+    return this.widgets$.pipe(
+      map((widgets) => {
+        const i = widgets.findIndex((widget) => widget.email === value);
+        if (i >= 0) {
+          this.emailAlredyExistError$ = of(`"${value}" email Aready Exist`);
+          throw new Error('Email Aready Exist');
+        }
+        return widgets;
+      })
+    );
   }
 }

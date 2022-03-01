@@ -74,7 +74,9 @@
           required
           name="title"
         />
-        <mat-error *ngIf="widgetForm.get('title').hasError('required')"> Title is required.</mat-error>
+        <mat-error *ngIf="widgetForm.get('title').hasError('required')">
+          Title is required.</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field class="full-width">
@@ -85,7 +87,9 @@
           placeholder="Description"
           required
         />
-        <mat-error *ngIf="widgetForm.get('description').hasError('required')"> Description is required.</mat-error>
+        <mat-error *ngIf="widgetForm.get('description').hasError('required')">
+          Description is required.</mat-error
+        >
       </mat-form-field>
 
       <mat-form-field>
@@ -97,10 +101,13 @@
           required
           name="email"
         />
-        <mat-error *ngIf="widgetForm.get('email').hasError('required')"> Email address is required.</mat-error>
+        <mat-error *ngIf="widgetForm.get('email').hasError('required')">
+          Email address is required.</mat-error
+        >
         <mat-error *ngIf="widgetForm.get('email').hasError('pattern')">
           Please enter valid email address.
         </mat-error>
+        <!-- <mat-error *ngIf="emailAlredyExistError$ | async as msg">{{msg}}</mat-error> -->
       </mat-form-field>
 
       <button

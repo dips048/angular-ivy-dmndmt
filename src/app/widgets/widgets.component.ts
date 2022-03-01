@@ -29,7 +29,7 @@ export class WidgetsComponent implements OnInit {
       this.widgetService.update(widget, widget.id).subscribe();
     } else {
       try{
-        this.widgetService.create(widget);
+        this.widgetService.create(widget).subscribe();
       }catch(e){
         
       }

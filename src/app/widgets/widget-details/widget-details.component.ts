@@ -12,9 +12,8 @@ import { WidgetsService } from '../widgets.service';
 export class WidgetDetailsComponent implements OnInit {
   currentWidget: Widget;
   originalTitle: string;
-  widgetForm: FormGroup;
-  emailAlredyExistError$: Observable<string>;
 
+  @Input() widgetForm: FormGroup;
   @Input() errorMessage: string;
   @Input() set widget(val: Widget) {
     console.log('val', val);
@@ -23,7 +22,6 @@ export class WidgetDetailsComponent implements OnInit {
       this.widgetForm.setValue({ ...val });
     }
   }
-
   @Input() widgetVal: Widget;
 
   @Output() saved = new EventEmitter<Widget>();
@@ -32,12 +30,11 @@ export class WidgetDetailsComponent implements OnInit {
   constructor(private fb: FormBuilder, private widgetService: WidgetsService) {}
 
   SubmitWidget(widget: Widget) {
-    // console.log('SubmitWidget', widget);
+    console.log('SubmitWidget', widget);
     this.saved.emit(widget);
   }
 
   ngOnInit() {
-    this.emailAlredyExistError$ = this.widgetService.emailAlredyExistError$;
     this.widgetForm = this.fb.group({
       id: [],
       title: [],

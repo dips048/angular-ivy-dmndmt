@@ -36,18 +36,21 @@ export class WidgetsComponent implements OnInit {
   saveWidget(widget: Widget) {
     console.log('saveWidget', widget);
     if (widget.id) {
-      console.log('update',widget);
-      this.widgetService.update(widget, widget.id).subscribe();
+      this.widgetService
+        .update(widget, widget.id)
+        .subscribe(() => this.reset());
     } else {
-      this.widgetService.create(widget).subscribe(
-        (next) => {
+      this.widgetService.create(widget).subscribe({
+        next: () => {
           this.reset();
         },
-        (err) => {
-          this.widgetForm.get('email').setErrors({ exist: true });
-          console.log('save widget', err.message);
-        }
-      );
+        error: (err) => {
+          if (err.message === 'E001') {
+            this.widgetForm.get('email').setErrors({ exist: true });
+          }
+          console.log('saveWidget error', err.message);
+        },
+      });
     }
   }
 
@@ -73,9 +76,9 @@ export class WidgetsComponent implements OnInit {
   }
 
   deleteWidget(widget: Widget) {
-     this.widgetService.delete(widget).subscribe({
-       next: () => this.reset()
-     });
+    this.widgetService.delete(widget).subscribe({
+      next: () => this.reset(),
+    });
   }
 
   onSelected(widget: Widget) {
